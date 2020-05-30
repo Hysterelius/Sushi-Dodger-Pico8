@@ -8,7 +8,7 @@ function _init()
 	nexlev=false--this is to play level transition
 	g=0.025 --gravity
 	life=0 --so no extra lives
-	numen= {10,16,20,22,24,55,47,42,35,30} --this is how many sushi spawn and likelhood of special sushi
+	numen= {10,16,20,22,24,55,47,42,35,30} --this is how many sushi spawn and likelihood of special sushi
 	blink_start() --blink table
 	p={}
 	p.alive=false
@@ -19,7 +19,7 @@ function start_game()
 	make_player()
 	enemies={} --makes enemy table
 	slow=false --ice enemy hasn't been hit
-	winseq={0,0} --win sequence, this is an array, the first didgt = winseq[1] as calls first didgt, and does the maths on it
+	winseq={0,0} --win sequence, this is an array, the first digit = winseq[1] as calls first digit, and does the maths on it
 	music(1,30,0)--starts music
 	for i=1,10 do --make 10 enemies
 		make_enemy(rnd(128),rnd(128))
@@ -33,7 +33,7 @@ end
 function blink_start()
 	blink=5 --blink/flashing code
 	rainbow=8--colour when starts rainbow
-	blink_i=1--position in seqence
+	blink_i=1--position in sequence
 	rainbow_i=1
 	blinkframe=0--counts when called
 	blinkspeed=17--how many times it should change colour, so ~10 times per second it blinks
@@ -56,9 +56,9 @@ function next_level(r) --when next level, r checks if level restart
 		nexlev=false--stops repeating this code
 		make_player() --make player
 		enemies={} --reset enemy table
-		music(-1,0,0)--stops prexisting music
+		music(-1,0,0)--stops preexisting music
 		music(1,30,0)--starts music
-		for i=1,numen[level] do --spawn a differnet number of sushi each level
+		for i=1,numen[level] do --spawn a different number of sushi each level
 			make_enemy(rnd(128),rnd(128))
 		end
 		clouds={} --cloud code
@@ -98,7 +98,7 @@ function make_enemy(x,y)
 	if e.y > (p.y-p.space) and e.y < (p.y+p.space) 
 	and e.x > (p.x-p.space) and e.x < (p.x+p.space) then
 		make_enemy(rnd(128),rnd(128)) --this code makes sure
- --that enemy doen't spawn on player
+ --that enemy doesn't spawn on player
 	else --if enemies won't spawn on p
 		if e.s == 1 then
 			e.sprite=35--if chance of special tells it to be a life
@@ -138,7 +138,7 @@ function _update()
 		timer()--time
 	end
 	if not start_seq then
-		if nexlev then--if play transition, keep reapeating
+		if nexlev then--if play transition, keep repeating
 			next_level(false)
 		else
 			check_win()--see if game has been won
@@ -233,7 +233,7 @@ function update_enemy(e)
 		elseif life == 0 and not e.f then--if no more lives and not slow
 			game_over()--game ends
 		elseif e.f then--if not special e and is slow
-			e.f = false--the enemy can now move normaly
+			e.f = false--the enemy can now move normally
 			del(enemies,e)--despawn
 			p.score-=1
 			make_enemy(e.x,e.y)--respawn in same place, if not spawn on p
@@ -255,7 +255,7 @@ function doblink()--this code is from Breakout
 	local b_seq = {8,9,10,11,11,10,9}
 	blinkframe+=1--every time repeated counted number of times repeated
 	iceframe+=1--for ice's frame as well, as they have a slower blink
-	if blinkframe>blinkspeed then --repeated until blinkspped
+	if blinkframe>blinkspeed then --repeated until blinkspeed
 		blinkframe=0--then reset
 		blink_i+=1--go up once through the sequence
 		rainbow_i+=1
@@ -265,17 +265,17 @@ function doblink()--this code is from Breakout
 		if rainbow_i>#r_seq then
 			rainbow_i=1
 		end
-		blink=c_seq[blink_i]--blink = blink_i's number's positon in the seqence
+		blink=c_seq[blink_i]--blink = blink_i's number's position in the sequence
 		rainbow=r_seq[rainbow_i]
 		
 	end
 	if iceframe>icespeed then--ice has a different speed from the other two
 		iceframe=0--start this loop again
-		ice_i+=1--move up the seqence
+		ice_i+=1--move up the sequence
 		gold_i+=1
 		bow_i+=1
 		if ice_i>#i_seq then
-			ice_i=1--reset the movement up the seqence
+			ice_i=1--reset the movement up the sequence
 		end 
 		if gold_i>#g_seq then
 			gold_i=1
@@ -403,7 +403,7 @@ function _draw() --this is like update, but for drawing
 	if (p.alive) then--if p is alive 
 		cls()--clear screen, all this layered unto of each other the high in the code, the more on top
 		background()--draw background
-		foreach(enemies,draw_enemy)--draw enemoes
+		foreach(enemies,draw_enemy)--draw enemies
 		draw_player()--draw player
 	end
 	if nexlev then --draw level transition
@@ -488,7 +488,7 @@ function game_won()--if game has been won
 	music(-1,0,0)--stop music
 	map(0,12,0,48,24,10)--draw mountain at back
 	print("game won!",48,46,9)--saw game has been won
-	if winseq[1]/15 == flr(winseq[1]/15) and winseq[2] < 8 then--so hat goes down 2 times per second, unti on head
+	if winseq[1]/15 == flr(winseq[1]/15) and winseq[2] < 8 then--so hat goes down 2 times per second, until on head
 		winseq[2]+=1--move hat down
 	end--hat comes down
 	spr(1,60,36)--print the p sprite
@@ -498,7 +498,7 @@ function game_won()--if game has been won
 		rectfill(61,24+winseq[2]+7,61,24+winseq[2]+7,rainbow)
 		rectfill(66,24+winseq[2]+7,66,24+winseq[2]+7,rainbow)
 	end--draws a rainbow hat
-	print("press ❎ to restart",28,72,rainbow)--asks if p wants to resart
+	print("press ❎ to restart",28,72,rainbow)--asks if p wants to restart
 	if btn(5) then
 		_init()
 	end
